@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello World - A-Frame VR</title>
+  <meta name="description" content="A-Frame VR Example">
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <!-- Sfondo del cielo -->
+    <a-sky color="#ECECEC"></a-sky>
+    <!-- ═══ MESH 3D GLB ═══ -->
+    <!--
+      gltf-model: percorso al file .glb
+      position:   X=0 (centro), Y=0 (a terra), Z=-2 (2 metri davanti)
+      scale:      regola le dimensioni — partire da 1 1 1 e aggiustare
+      rotation:   Y=45 → ruotato di 45° sull'asse verticale
+    -->
+    <a-entity
+      gltf-model="models/SanGiovanniAdInsulam.glb"
+      position="0 0 0"
+      scale="1 1 1"
+      rotation="0 0 0">
+    </a-entity>
+    
+    <!-- Luci per illuminazione -->
+    <a-light type="ambient" color="#445451"></a-light>
+    <a-light type="point" intensity="1" position="2 4 4"></a-light>
+    
+    <!-- Controlli VR e movimento con thumbstick -->
+    <a-entity movement-controls="fly: true; constrainToNavMesh: false"></a-entity>
+  </a-scene>
+</body>
+</html>

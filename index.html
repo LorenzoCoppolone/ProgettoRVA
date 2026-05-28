@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-Frame 360° Panorama</title>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-Frame 360° Panorama</title>
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
-    <script>
-    // Componente custom: al click reindirizza a un'altra pagina
+  <script>
     AFRAME.registerComponent('link-to', {
       schema: { type: 'string', default: '' },
       init: function () {
@@ -17,36 +16,42 @@
       }
     });
   </script>
-```
- 
 </head>
 <body>
 
-    <a-scene>
-      <a-scene vr-mode-ui="enabled: true" renderer="antialias: true"></a-scene>
-        <!-- Sky con immagine 360°-->
-        <a-sky src="img/SantuarioEsterno.jpg" rotation="0 0 0"></a-sky>
+  <a-scene
+  vr-mode-ui="enabled: true"
+  renderer="antialias: true"
+  webxr="optionalFeatures: local-floor;">
 
-         <!-- Camera + cursor per guardarsi intorno -->
-      <a-entity camera look-controls wasd-controls position="0 0 -6">
-        <a-entity 
+    <!-- Sky con immagine 360° -->
+    <a-sky src="img/SantuarioEsterno.jpg" rotation="0 0 0"></a-sky>
+
+    <!--
+      AVATAR RIG a livello suolo (y=0).
+      La camera interna è a y=1.6 → altezza occhi umani.
+    -->
+    <a-entity id="rig" position="0 0 0">
+      <a-entity
+        camera look-controls position="0 1.6 0">
+
+        <a-entity
           cursor="fuse: true; fuseTimeout: 1000"
           position="0 0 -1"
           geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
           material="color: white; shader: flat">
         </a-entity>
+
       </a-entity>
+    </a-entity>
 
-    
 
-
-         <!-- ═══ PORTALE verso Sala 2 ═══ -->
+    <!-- ═══ PORTALE verso Sala 2 ═══ -->
     <a-entity
-      position="-4 1 -4"
+      position="-4 2 -4"
       rotation="0 90 0"
       link-to="index2.html">
 
-      <!-- Anello visivo del portale -->
       <a-torus
         color="#00CFFF"
         radius="0.8"
@@ -61,10 +66,8 @@
         height="1.5"
         color="#00CFFF"
         opacity="0">
-
       </a-plane>
 
-      <!-- Etichetta testuale -->
       <a-text
         value="→ GUARDA QUI 
         PER ENTRARE NEL NUOVO SANTUARIO"
@@ -74,25 +77,25 @@
         width="8">
       </a-text>
 
-        <!-- Copyright -->
-    <a-text
-      value="© Immagine di: Andrea Garavaglia"
-      position="3.5 -1.8 -4"
-      rotation="0 0 0"
-      scale="0.5 0.5 0.5"
-      align="right"
-      color="#FFFFFF"
-      font="kelsonsans">
-    </a-text>
+      <!-- Copyright -->
+      <a-text
+        value="© Immagine di: Andrea Garavaglia"
+        position="3.5 -1.8 -4"
+        rotation="0 0 0"
+        scale="0.5 0.5 0.5"
+        align="right"
+        color="#FFFFFF"
+        font="kelsonsans">
+      </a-text>
 
     </a-entity>
 
-     <a-entity
+    <!-- ═══ PORTALE verso Sala 4 ═══ -->
+    <a-entity
       position="-4 1 9"
       rotation="0 180 0"
       link-to="index4.html">
 
-      <!-- Anello visivo del portale -->
       <a-torus
         color="#00CFFF"
         radius="0.8"
@@ -107,10 +110,8 @@
         height="1.5"
         color="#00CFFF"
         opacity="0">
-
       </a-plane>
 
-      <!-- Etichetta testuale -->
       <a-text
         value="→ GUARDA QUI 
         PER ENTRARE NEL VECCHIO SANTUARIO"
@@ -122,6 +123,14 @@
 
     </a-entity>
 
-    </a-scene>
+    <!-- MODELLO GLB -->
+<a-entity
+  gltf-model="url(model/Andrea.glb)"
+  position="-4 -1 2"
+  rotation="10 -85 0"
+  scale="1.5 1.5 1.5">
+</a-entity>
+
+  </a-scene>
 </body>
 </html>
